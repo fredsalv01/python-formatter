@@ -6,32 +6,49 @@ load_dotenv()
 
 TOKEN = os.getenv('TOKEN')
 URL = os.getenv('SIMPLIROUTE_URL')
-PLATES_DATA = pd.read_csv("ORBITEC_SIMPLIROUTE.csv")
+PLATES_DATA = pd.read_csv(os.getenv('PLATES_DATA'))
 
-arr = []
+plates = []
+formatted_plates = []
+plates_list = []
 
 for plate in PLATES_DATA.Dispositivo:
-    arr.append(plate)
+    plates.append(plate)
+    formatted_plates.append(plate.replace('-', '').upper())
 
-print(arr)
+    plates_list.append({
+        'plate': plate,
+        'formatted_plate': plate.replace('-', '').upper()
+    })
 
 headers = {
-  'Content-Type': 'application/json',
-  'Authorization': f'Token {TOKEN}'
+    'Content-Type': 'application/json',
+    'Authorization': f'Token {TOKEN}'
 }
 
 # response = None
+plates_response = []
 
 try:
-  response = requests.get(URL, headers=headers)
+    response = requests.get(URL, headers=headers)
 
-  if response.status_code == 200:
-    print(response.json())
-    print("Success")
-  else:
-    print("Error")
-    print(response.json())
+    if response.status_code == 200:
+        raw_data = response.json()
 
+        for item in raw_data:
+            for plate in plates_list:
+                if plate['formatted_plate'] == item['reference_id']:
+                    plates_response.append({
+                        'orbitec_plate': plate['plate'],
+                        'simpliroute_id': item['id'],
+                        'simpliroute_name': item['name'],
+                        'simpliroute_reference_id': item['reference_id']
+                    })
+
+        print(plates_response)
+    else:
+        print("Error")
+        print(response.json())
 except Exception as e:
-  print(e)
-  print("Error")
+    print(e)
+    print("Error")
