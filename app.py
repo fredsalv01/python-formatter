@@ -4,6 +4,24 @@ import pandas as pd, json, os, requests
 
 load_dotenv()
 
+# adsdasdasds
+#a sdasdasda
+#asdasdasdasd
+
+
+
+
+#
+
+
+
+
+###
+
+
+
+####
+
 TOKEN = os.getenv('TOKEN')
 URL = os.getenv('SIMPLIROUTE_URL')
 PLATES_DATA = pd.read_csv(os.getenv('PLATES_DATA'))
@@ -26,7 +44,6 @@ headers = {
     'Authorization': f'Token {TOKEN}'
 }
 
-# response = None
 plates_response = []
 
 try:
@@ -44,10 +61,10 @@ try:
                         'simpliroute_name': item['name'],
                         'simpliroute_reference_id': item['reference_id']
                     })
-                    
+
         with open('plates_response.json', 'w') as f:
             json.dump(plates_response, f)
-        
+
     else:
         print("Error")
         print(response.json())
