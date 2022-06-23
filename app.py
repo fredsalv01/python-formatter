@@ -6,7 +6,7 @@ load_dotenv()
 
 # adsdasdasds
 #a sdasdasda
-#asdasdasdasd
+
 
 TOKEN = os.getenv('TOKEN')
 URL = os.getenv('SIMPLIROUTE_URL')
