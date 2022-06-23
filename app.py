@@ -44,8 +44,10 @@ try:
                         'simpliroute_name': item['name'],
                         'simpliroute_reference_id': item['reference_id']
                     })
-
-        print(plates_response)
+                    
+        with open('plates_response.json', 'w') as f:
+            json.dump(plates_response, f)
+        
     else:
         print("Error")
         print(response.json())
