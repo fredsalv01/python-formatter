@@ -1,26 +1,7 @@
-from typing import List
 from dotenv import load_dotenv
 import pandas as pd, json, os, requests
 
 load_dotenv()
-
-# adsdasdasds
-#a sdasdasda
-#asdasdasdasd
-
-
-
-
-#
-
-
-
-
-###
-
-
-
-####
 
 TOKEN = os.getenv('TOKEN')
 URL = os.getenv('SIMPLIROUTE_URL')
@@ -59,7 +40,8 @@ try:
                         'orbitec_plate': plate['plate'],
                         'simpliroute_id': item['id'],
                         'simpliroute_name': item['name'],
-                        'simpliroute_reference_id': item['reference_id']
+                        'simpliroute_reference_id': item['reference_id'],
+                        'is_active': True
                     })
 
         with open('plates_response.json', 'w') as f:
